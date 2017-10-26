@@ -12,6 +12,23 @@ enum macro_id {
     MACRO_DOUBLE_ZERO,
 };
 
+#define LED_PORT   PORTD
+#define LED_PIN    PIND
+#define LED_DDR    DDRD
+#define LED_BIT    4
+
+void led_thingy_off(void)
+{
+    LED_PORT &= ~(1<<LED_BIT);
+    LED_DDR  |=  (1<<LED_BIT);
+}
+
+void led_thingy_on(void)
+{
+    LED_DDR  &= ~(1<<LED_BIT);
+    LED_PORT |=  (1<<LED_BIT);
+}
+
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0:
      * ,---------------------------------------------------------------.  ,-----------. ,---------------.
@@ -91,3 +108,31 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     }
     return MACRO_NONE;
 }
+
+/* stuff and things */
+
+uint16_t time = 0x0000;
+
+bool led_flash = false;
+
+const uint16_t LED_FLASH_TIME = 2000;
+
+void hook_keyboard_loop(void) {
+    uint16_t diff;
+    if (time == 0) {
+        time = timer_read();
+        diff = 0;
+    } else {
+        diff = timer_elapsed(time);
+    }
+    if (diff >= LED_FLASH_TIME) {
+        led_flash = !led_flash;
+        if (led_flash) {
+            led_thingy_on();
+        } else {
+            led_thingy_off();
+        }
+    }
+
+}
+
