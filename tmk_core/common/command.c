@@ -140,8 +140,28 @@ static void command_common_help(void)
 #ifdef SLEEP_LED_ENABLE
           "z:	sleep LED test\n"
 #endif
+
+#ifdef EEPROM_DUMP_ENABLE
+            "p:     dump eeprom contents\n"  
+#endif        
     );
 }
+
+#ifdef EEPROM_DUMP_ENABLE
+static void dump_eeprom(void)
+{
+    for (int i = 0; i < 1024; i++) {
+        uint8_t *addr = (uint8_t *)i;
+        uint8_t val = eeprom_read_byte(addr);
+        print_hex8(val);
+        if (i >0 && i % 16 == 0) {
+            print("\n");
+        } else {
+            print(" ");
+        }
+    }
+}
+#endif
 
 #ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
@@ -204,6 +224,12 @@ static bool command_common(uint8_t code)
         case KC_E:
             print("eeconfig:\n");
             print_eeconfig();
+            break;
+#endif
+#ifdef EEPROM_DUMP_ENABLE
+        case KC_P:
+            print("eeprom contents:\n");
+            dump_eeprom();
             break;
 #endif
 #ifdef KEYBOARD_LOCK_ENABLE
