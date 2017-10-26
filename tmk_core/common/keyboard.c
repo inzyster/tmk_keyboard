@@ -43,6 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ADB_MOUSE_ENABLE
 #include "adb.h"
 #endif
+#ifdef PROGRAMMING_ENABLE
+#include "programming.h"
+#endif
 
 
 #ifdef MATRIX_HAS_GHOST
@@ -90,6 +93,11 @@ void keyboard_init(void)
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
+
+#ifdef PROGRAMMING_ENABLE
+    programming_init();
+#endif
+
 }
 
 /*

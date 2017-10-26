@@ -23,6 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define EECONFIG_MAGIC_NUMBER                       (uint16_t)0xFEED
+#ifdef PROGRAMMING_ENABLE
+#define EECONFIG_PROGRAMMING_HEADER_VALUE           (uint16_t)0xBEEF
+#endif
 
 /* eeprom parameteter address */
 #define EECONFIG_MAGIC                              (uint16_t *)0
@@ -31,7 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_KEYMAP                             (uint8_t *)4
 #define EECONFIG_MOUSEKEY_ACCEL                     (uint8_t *)5
 #define EECONFIG_BACKLIGHT                          (uint8_t *)6
-
+#ifdef PROGRAMMING_ENABLE
+#define EECONFIG_PROGRAMMING_HEADER                 (uint8_t *)8
+#define EECONFIG_PROGRAMMING                        (uint8_t *)10
+#endif
 
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE                       (1<<0)
@@ -70,6 +76,11 @@ void eeconfig_write_keymap(uint8_t val);
 #ifdef BACKLIGHT_ENABLE
 uint8_t eeconfig_read_backlight(void);
 void eeconfig_write_backlight(uint8_t val);
+#endif
+
+#ifdef PROGRAMMING_ENABLE
+uint8_t eeconfig_read_programming(void);
+void eeconfig_write_programming(uint8_t val);
 #endif
 
 #endif

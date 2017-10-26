@@ -67,6 +67,10 @@ ifeq (yes,$(strip $(EEPROM_DUMP_ENABLE)))
 	OPT_DEFS += -DEEPROM_DUMP_ENABLE
 endif
 
+ifeq (yes,$(strip $(PROGRAMMING_ENABLE)))
+    OPT_DEFS += -DPROGRAMMING_ENABLE
+endif
+
 ifeq (yes,$(strip $(USB_6KRO_ENABLE)))
     OPT_DEFS += -DUSB_6KRO_ENABLE
 endif
