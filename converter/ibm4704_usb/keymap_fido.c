@@ -112,20 +112,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 /* stuff and things */
 
 uint16_t time = 0x0000;
+uint16_t diff = 0x0000;
 
 bool led_flash = false;
 
-const uint16_t LED_FLASH_TIME = 2000;
+const uint16_t LED_FLASH_TIME = 750;
 
 void hook_keyboard_loop(void) {
-    uint16_t diff;
+    return;
     if (time == 0) {
         time = timer_read();
-        diff = 0;
-    } else {
+    }
+    else {
         diff = timer_elapsed(time);
     }
     if (diff >= LED_FLASH_TIME) {
+        time = timer_read();
         led_flash = !led_flash;
         if (led_flash) {
             led_thingy_on();
