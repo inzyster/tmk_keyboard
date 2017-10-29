@@ -12,21 +12,10 @@ enum macro_id {
     MACRO_DOUBLE_ZERO,
 };
 
-#define LED_PORT   PORTD
-#define LED_PIN    PIND
-#define LED_DDR    DDRD
-#define LED_BIT    4
-
-void led_thingy_off(void)
+static inline void power_led_on(void)
 {
-    LED_PORT &= ~(1<<LED_BIT);
-    LED_DDR  |=  (1<<LED_BIT);
-}
-
-void led_thingy_on(void)
-{
-    LED_DDR  &= ~(1<<LED_BIT);
-    LED_PORT |=  (1<<LED_BIT);
+    DDRD    |=  (1 << PORTD4);
+    PORTD   |=  (1 << PORTD4); 
 }
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -111,30 +100,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 /* stuff and things */
 
-uint16_t time = 0x0000;
-uint16_t diff = 0x0000;
-
-bool led_flash = false;
-
-const uint16_t LED_FLASH_TIME = 750;
+void hook_late_init(void) {
+    power_led_on();
+}
 
 void hook_keyboard_loop(void) {
     return;
-    if (time == 0) {
-        time = timer_read();
-    }
-    else {
-        diff = timer_elapsed(time);
-    }
-    if (diff >= LED_FLASH_TIME) {
-        time = timer_read();
-        led_flash = !led_flash;
-        if (led_flash) {
-            led_thingy_on();
-        } else {
-            led_thingy_off();
-        }
-    }
-
 }
 
