@@ -1,4 +1,5 @@
 #include "keymap_common.h"
+#include "led_stuff.h"
 
 #define KC_FSAV    KC_FN10
 #define KC_FBLD    KC_FN11
@@ -100,11 +101,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 /* stuff and things */
 
-void hook_late_init(void) {
+void hook_late_init(void) 
+{
     power_led_on();
 }
 
-void hook_keyboard_loop(void) {
-    return;
+void hook_keyboard_loop(void) 
+{
+    led_timer_tick();
 }
 
