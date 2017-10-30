@@ -6,6 +6,10 @@
 #define KC_FFND    KC_FN12
 #define KC_FDBZ    KC_FN13
 
+enum function_id {
+    FUNCTION_LED_WOO,
+};
+
 enum macro_id {
     MACRO_SAVE,
     MACRO_BUILD,
@@ -58,7 +62,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     GRV, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,DEL, DEL, F5,       MPLY,MNXT,MPRV,     CALC,TRNS,TRNS,TRNS, \
     TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     F10,      TRNS,TRNS,VOLU,     TRNS,TRNS,TRNS,TRNS, \
     CAPS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     F11,      F9,  TRNS,VOLD,     TRNS,TRNS,TRNS,TRNS, \
-    TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FFND,TRNS,          F12,      TRNS,PGUP,TRNS,     TRNS,TRNS,TRNS,TRNS, \
+    TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FFND,TRNS,          F12,      FN20,PGUP,TRNS,     TRNS,TRNS,TRNS,TRNS, \
     TRNS,TRNS,TRNS,          TRNS,                    TRNS,TRNS,               FBLD,     HOME,PGDN,END,      TRNS,TRNS,TRNS,TRNS  \
     ),
 };
@@ -69,7 +73,25 @@ const action_t PROGMEM fn_actions[] = {
     [11] = ACTION_MACRO(MACRO_BUILD),
     [12] = ACTION_MACRO(MACRO_FIND),
     [13] = ACTION_MACRO(MACRO_DOUBLE_ZERO),
+    [20] = ACTION_FUNCTION(FUNCTION_LED_WOO),
 };
+
+/*
+ * Functions
+ */
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+    keyevent_t event = record->event;
+
+    switch (id) {
+        case FUNCTION_LED_WOO: {
+            if (event.pressed == false) {
+                led_set_pattern({ .pattern = 0b00101101, .length = 8, .repeat = false });
+            }
+            break;
+        }
+    }
+}
 
 /*
  * Macro definition

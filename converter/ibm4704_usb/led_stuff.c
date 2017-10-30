@@ -48,6 +48,7 @@ void led_process_pattern(void)
 void led_set_pattern(led_pattern_t pattern) {
     _pattern.length = 0;
     _pattern = pattern;
+    _pattern.remain = _pattern.length;
     led_process_pattern();
 }
 
