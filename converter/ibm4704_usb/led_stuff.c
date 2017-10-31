@@ -1,6 +1,7 @@
 
 #include "led_stuff.h"
 #include "timer.h"
+#include "debug.h"
 
 uint16_t led_timer = 0;
 bool is_led_on = false;
@@ -25,16 +26,21 @@ static inline void led_off(void)
 
 void led_process_pattern(void) 
 {
+    dprint("processing patteren\n");
+    dprintf("p: %d, l: %d, r: %d, rep: %d\n", _pattern.pattern, _pattern.length, _pattern.remain, _pattern.repeat);
     led_timer = timer_read();
-    if (_pattern.length == 0) 
+    if (_pattern.length == 0) {
+        dprint("length = 0, exiting\n");
         return; 
+    }
     if (_pattern.remain == 0) {
         if (_pattern.repeat == false) {
             return;
         } else {
             _pattern.remain = _pattern.length;
         }
-    } else {
+    } 
+    if (_pattern.remain > 0) {
         _pattern.remain--;
         bool turn_on = 0x1 & (_pattern.pattern >> _pattern.remain);
         if (is_led_on == true && turn_on == false) {
@@ -48,7 +54,6 @@ void led_process_pattern(void)
 void led_set_pattern(led_pattern_t pattern) {
     _pattern.length = 0;
     _pattern = pattern;
-    _pattern.remain = _pattern.length;
     led_process_pattern();
 }
 

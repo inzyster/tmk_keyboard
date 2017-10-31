@@ -9,11 +9,10 @@ extern "C" {
 #endif
 
 typedef struct {
-    uint8_t pattern : 8;
-    uint8_t remain  : 3;
-    uint8_t length  : 3;
-    bool repeat     : 1;
-    bool reserved   : 1;
+    uint8_t pattern;
+    uint8_t remain;
+    uint8_t length;
+    bool repeat;
 } led_pattern_t;
 
 void led_timer_tick(void);

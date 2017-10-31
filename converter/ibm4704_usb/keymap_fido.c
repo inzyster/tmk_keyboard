@@ -1,5 +1,6 @@
 #include "keymap_common.h"
 #include "led_stuff.h"
+#include "debug.h"
 
 #define KC_FSAV    KC_FN10
 #define KC_FBLD    KC_FN11
@@ -86,8 +87,12 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     switch (id) {
         case FUNCTION_LED_WOO: {
             if (event.pressed == false) {
-                led_set_pattern({ .pattern = 0b00101101, .length = 8, .repeat = false });
-            }
+                dprint("pattern fn triggered\n");
+                led_pattern_t pattern;
+                pattern = (led_pattern_t){ .pattern = 0b01010101, .length = 8, .remain = 8, .repeat = true };
+                dprintf("pattern = %d, length = %d, remain = %d, repeat = %d\n", pattern.pattern, pattern.length, pattern.remain, pattern.repeat);
+                led_set_pattern(pattern);
+            } 
             break;
         }
     }
