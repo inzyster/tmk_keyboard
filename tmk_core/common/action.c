@@ -65,6 +65,8 @@ void process_action(keyrecord_t *record)
 
     if (IS_NOEVENT(event)) { return; }
 
+    if (!hook_process_action(record)) { return; }
+
     action_t action = layer_switch_get_action(event);
     dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER

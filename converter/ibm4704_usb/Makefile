@@ -11,7 +11,8 @@ TARGET_DIR ?= .
 SRC ?=	matrix.c \
 	led.c \
 	protocol/ibm4704.c \
-    led_stuff.c
+    led_stuff.c \
+    programming.c
 
 #
 # Keymap file

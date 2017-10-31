@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _HOOKS_H_
 
 #include "keyboard.h"
+#include "action.h"
 #include "led.h"
 
 /* -------------------------------------
@@ -76,5 +77,6 @@ void hook_keyboard_leds_change(uint8_t led_status);
 /* Default behaviour: do nothing. */
 void hook_bootmagic(void);
 
+bool hook_process_action(keyrecord_t *record);
 
 #endif /* _HOOKS_H_ */

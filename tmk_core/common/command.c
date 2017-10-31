@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   include "usbdrv.h"
 #endif
 
-
+static int free_ram(void);
 static bool command_common(uint8_t code);
 static void command_common_help(void);
 static bool command_console(uint8_t code);
@@ -162,6 +162,13 @@ static void dump_eeprom(void)
     }
 }
 #endif
+
+static int free_ram(void) 
+{
+  extern int __heap_start, *__brkval; 
+  int v; 
+  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
+}
 
 #ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
@@ -379,6 +386,7 @@ static bool command_common(uint8_t code)
             print_val_hex8(usbSofCount);
 #   endif
 #endif
+            printf("free ram: %d\n", free_ram());
             break;
 #ifdef NKRO_ENABLE
         case KC_N:
