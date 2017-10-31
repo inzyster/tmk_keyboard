@@ -69,7 +69,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const action_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),
+    [0] = ACTION_LAYER_TAP_KEY(1, KC_FN20),
     [10] = ACTION_MACRO(MACRO_SAVE),
     [11] = ACTION_MACRO(MACRO_BUILD),
     [12] = ACTION_MACRO(MACRO_FIND),
