@@ -386,7 +386,7 @@ static bool command_common(uint8_t code)
             print_val_hex8(usbSofCount);
 #   endif
 #endif
-            printf("free ram: %d\n", free_ram());
+
             break;
 #ifdef NKRO_ENABLE
         case KC_N:
