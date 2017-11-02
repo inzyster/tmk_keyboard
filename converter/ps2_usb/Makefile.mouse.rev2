@@ -1,4 +1,4 @@
-TARGET ?= ps2_usb_rev2
+TARGET ?= ps2_usb_rev2_mouse
 MCU = atmega32u4
 CONFIG_H = config_rev2.h
 BOOTLOADER_SIZE = 4096
@@ -13,6 +13,6 @@ NKRO_ENABLE ?= yes
 PS2_USE_USART = no
 PS2_USE_INT = yes
 PS2_USE_BUSYWAIT = no
-#PS2_MOUSE_ENABLE = yes
+PS2_MOUSE_ENABLE = yes
 
 include Makefile
