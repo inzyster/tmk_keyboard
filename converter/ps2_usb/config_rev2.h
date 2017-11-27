@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/interrupt.h>
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6512
+#define PRODUCT_ID      0x1251
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    t.m.k.
-#define PRODUCT         PS/2 keyboard converter
-#define DESCRIPTION     convert PS/2 keyboard to USB
+#define PRODUCT         Cherry G80-1251
+#define DESCRIPTION     Converted to USB via tmk
 
 
 /* matrix size */

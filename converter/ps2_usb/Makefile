@@ -110,6 +110,7 @@ PS2_USE_INT ?= yes	# uses external interrupt for falling edge of PS/2 clock pin
 VPATH += $(TARGET_DIR)
 VPATH += $(TMK_DIR)
 
+include ps2.mk
 include $(TMK_DIR)/protocol.mk
 include $(TMK_DIR)/protocol/lufa.mk
 include $(TMK_DIR)/common.mk

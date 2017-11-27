@@ -265,8 +265,10 @@ bool process_tapping(keyrecord_t *keyp)
             // timeout. no sequential tap.
             debug("Tapping: End(Timeout after releasing last tap): ");
             debug_event(event); debug("\n");
-            tapping_key = (keyrecord_t){};
             debug_tapping_key();
+            tapping_key.tap.finished = true;
+            process_action(&tapping_key);
+            tapping_key = (keyrecord_t){};
             return false;
         }
     }
