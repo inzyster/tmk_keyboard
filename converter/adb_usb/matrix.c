@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static bool has_media_keys = false;
 static bool is_iso_layout = false;
-static bool use_extended_protocol = false;
+static bool switchboard_fixes = true;
 static report_mouse_t mouse_report = {};
 
 // matrix state buffer(1:on, 0:off)
@@ -178,6 +178,7 @@ void adb_mouse_task(void)
 // 36 - LCTRL
 // 37 - LOPT
 // 38 - LSHIFT
+// 39 - CAPS
 // 3A - CMD
 // 7B - RSHIFT
 // 7C - ROPT
@@ -264,7 +265,7 @@ uint8_t matrix_scan(void)
     } else if (codes == 0xFFFF) {   // power key release
         register_key(0xFF);
     } else if (key0 == 0xFF) {      // error
-        if (use_extended_protocol == false) {
+        if (switchboard_fixes == true) {
             key0 = key1;
             key1 = 0xFF;
             goto HANDLED;
@@ -315,55 +316,64 @@ uint8_t matrix_scan(void)
                 key0 = (key0 & 0x80) | 0x32;
             }
         }
-        if (key0 == 0x36) {
-            if (mods & (0x1000)) {
-                mods &= ~(0x1000);
-                key0 |= 0x80;
-            } else { 
-                mods |= (0x1000);
+        if (switchboard_fixes == true) {
+            if (key0 == 0x36) {
+                if (mods & (0x1000)) {
+                    mods &= ~(0x1000);
+                    key0 |= 0x80;
+                } else { 
+                    mods |= (0x1000);
+                }
+            } else if (key0 == 0x37) {
+                if (mods & (0x0100)) {
+                    mods &= ~(0x0100);
+                    key0 |= 0x80;                
+                } else {
+                    mods |= (0x0100);
+                }
+            } else if (key0 == 0x38) {
+                if (mods & (0x0010)) {
+                    mods &= ~(0x0010);
+                    key0 |= 0x80;                
+                } else {
+                    mods |= (0x0010);
+                }
+/*            } else if (key0 == 0x39) {
+                if (mods & (0x0040)) {
+                    mods &= ~(0x0040);
+                    key0 |= 0x80;                
+                } else {
+                    mods |= (0x0040);
+                }                */
+            } else if (key0 == 0x3A) {
+                if (mods & (0x0001)) {
+                    mods &= ~(0x0001);
+                    key0 |= 0x80;                
+                } else {
+                    mods |= (0x0001);
+                } 
+            } else if (key0 == 0x7B) {
+                if (mods & (0x0200)) {
+                    mods &= ~(0x0200);
+                    key0 |= 0x80;                
+                } else {
+                    mods |= (0x0200);
+                }
+            } else if (key0 == 0x7C) {
+                if (mods & (0x0020)) {
+                    mods &= ~(0x0020);
+                    key0 |= 0x80;                
+                } else {
+                    mods |= (0x0020);
+                }
+            } else if (key0 == 0x7D) {
+                if (mods & (0x0002)) {
+                    mods &= ~(0x0002);
+                    key0 |= 0x80;                
+                } else {
+                    mods |= (0x0002);
+                } 
             }
-        } else if (key0 == 0x37) {
-            if (mods & (0x0100)) {
-                mods &= ~(0x0100);
-                key0 |= 0x80;                
-            } else {
-                mods |= (0x0100);
-            }
-        } else if (key0 == 0x38) {
-            if (mods & (0x0010)) {
-                mods &= ~(0x0010);
-                key0 |= 0x80;                
-            } else {
-                mods |= (0x0010);
-            }
-        } else if (key0 == 0x3A) {
-            if (mods & (0x0001)) {
-                mods &= ~(0x0001);
-                key0 |= 0x80;                
-            } else {
-                mods |= (0x0001);
-            } 
-        } else if (key0 == 0x7B) {
-            if (mods & (0x0200)) {
-                mods &= ~(0x0200);
-                key0 |= 0x80;                
-            } else {
-                mods |= (0x0200);
-            }
-        } else if (key0 == 0x7C) {
-            if (mods & (0x0020)) {
-                mods &= ~(0x0020);
-                key0 |= 0x80;                
-            } else {
-                mods |= (0x0020);
-            }
-        } else if (key0 == 0x7D) {
-            if (mods & (0x0002)) {
-                mods &= ~(0x0002);
-                key0 |= 0x80;                
-            } else {
-                mods |= (0x0002);
-            } 
         }
         register_key(key0);
         if (key1 != 0xFF)       // key1 is 0xFF when no second key.

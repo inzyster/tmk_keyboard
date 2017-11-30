@@ -41,8 +41,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch (id) {
         case MA_SAVE: {
             return (event.pressed ? 
-                    MACRO( D(LCTL), T(S), END ) :
-                    MACRO( U(LCTL), END ));
+                    MACRO( D(LCTL), T(S), U(LCTL), END ) :
+                    MACRO( D(LCTL), T(S), U(LCTL), END ));
             break;
         }
         case MA_BUILD: {
