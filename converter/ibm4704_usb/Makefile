@@ -10,9 +10,7 @@ TARGET_DIR ?= .
 # project specific files
 SRC ?=	matrix.c \
 	led.c \
-	protocol/ibm4704.c \
-    led_stuff.c \
-    programming.c
+	protocol/ibm4704.c
 
 #
 # Keymap file
