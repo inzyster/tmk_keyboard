@@ -24,9 +24,9 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------------------------------------------------------------'  `-----------' `---------------'
      */
     KEYMAP_ALPS102(
-    ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,BSPC,NO,       PSCR,SLCK,PAUS,     NLCK,PSLS,PAST,PMNS, \
-    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     NO,       INS, HOME,PGUP,     P7,  P8,  P9,  EQL,  \
-    CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT, ENT,      NO,       DEL, END, PGDN,     P4,  P5,  P6,  PPLS,  \
+    ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,BSPC,NO,       INS, HOME,PGUP,     NLCK,PSLS,PAST,PMNS, \
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     NO,       DEL, END, PGDN,     P7,  P8,  P9,  EQL,  \
+    CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT, ENT,      NO,       TRNS,TRNS,TRNS,     P4,  P5,  P6,  PPLS,  \
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RSFT,RSFT,          NO,       NO,  UP,  NO,       P1,  P2,  P3,  PENT, \
     LCTL,LGUI,LALT,          SPC,                     RALT,FN0,                RCTL,     LEFT,DOWN,RGHT,     P0,  FTPZ,PDOT,PENT  \
     ),
